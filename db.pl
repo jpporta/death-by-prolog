@@ -14,3 +14,31 @@
 
 % 5-	(3 pontos) Idem ao anterior, mostrando o dia e horário de partida e a duração total da viagem.
 %  menor_roteiro(Origem, Destino, DiaSaída, HorSaida, Duração).
+
+
+%----------------- DEFINES ----------------
+voo(sao-paulo, mexico, código,partida,(dia_chegada,horario_chegada), número_de_escalas, companhia,[dias]).
+voo(sao-paulo, nova-york, código,partida,(dia_chegada,horario_chegada), número_de_escalas, companhia,[dias]).
+voo(sao-paulo, lisboa, código,partida,(dia_chegada,horario_chegada), número_de_escalas, companhia,[dias]).
+voo(sao-paulo, madrid, código,partida,(dia_chegada,horario_chegada), número_de_escalas, companhia,[dias]).
+voo(sao-paulo, londres, código,partida,(dia_chegada,horario_chegada), número_de_escalas, companhia,[dias]).
+voo(sao-paulo, paris, código,partida,(dia_chegada,horario_chegada), número_de_escalas, companhia,[dias]).
+
+voo(mexico, nova-york, código,partida,(dia_chegada,horario_chegada), número_de_escalas, companhia,[dias]).
+voo(mexico, madrid, código,partida,(dia_chegada,horario_chegada), número_de_escalas, companhia,[dias]).
+
+voo(nova-york, londres, código,partida,(dia_chegada,horario_chegada), número_de_escalas, companhia,[dias]).
+
+voo(londres, lisboa, código,partida,(dia_chegada,horario_chegada), número_de_escalas, companhia,[dias]).
+voo(londres, paris, código,partida,(dia_chegada,horario_chegada), número_de_escalas, companhia,[dias]).
+voo(londres, estocolmo, código,partida,(dia_chegada,horario_chegada), número_de_escalas, companhia,[dias]).
+
+voo(madrid, paris, código,partida,(dia_chegada,horario_chegada), número_de_escalas, companhia,[dias]).
+voo(madrid, roma, código,partida,(dia_chegada,horario_chegada), número_de_escalas, companhia,[dias]).
+voo(madrid, frankfurt, código,partida,(dia_chegada,horario_chegada), número_de_escalas, companhia,[dias]).
+
+voo(frankfurt, estocolmo, código,partida,(dia_chegada,horario_chegada), número_de_escalas, companhia,[dias]).
+voo(frankfurt, roma, código,partida,(dia_chegada,horario_chegada), número_de_escalas, companhia,[dias]).
+
+
+%%----------------- FUNÇÕES ----------------
