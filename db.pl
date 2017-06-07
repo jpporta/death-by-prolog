@@ -71,23 +71,22 @@ voo(frankfurt, london, 1112, 6,(mesmo,9), 0, gol,[qua,qui]).
 % ?-menorDuracao(Origem,Destino,dia,HorarioSaida,HorarioChegada,Companhia)
 
   listaVoosDiretos(X,X,[]).
-  listaVoosDiretos(Origem, Destino, _, L) :-
+  listaVoosDiretos(Origem, Destino, L) :-
     findall(Codigo, voo(Origem, Destino, Codigo, _, (_, _), 0, _, _), L).
 
 
 	menorDuracao(Origem,Destino,Dia,HorarioSaida,HorarioChegada,Companhia) :-
 		%voo_direto(Origem, Destino, Companhia, Dia, HorarioSaida).
-		listaVoosDiretos(Origem, Destino, Dia, L),
+		listaVoosDiretos(Origem, Destino, L),
     calculaMenorDuracao(L, Dia, HorarioSaida, HorarioChegada, Companhia, _).
 
 
 %nao funciona se formato 8:00, mas sim com 800.
   calculaMenorDuracao([], _, _, _, _, 10000000).
-  calculaMenorDuracao([H|T], Dia, Partida, Chegada, Companhia, Duracao) :-
+  calculaMenorDuracao([H|T], Dia, Partida, Chegada, Companhia, Chegada - Partida) :-
     calculaMenorDuracao(T, _, _, _, _, DuraResto),
     voo(_, _, H, Partida, (_, Chegada),_ ,Companhia, Dia),
-    Chegada - Partida =< DuraResto,
-    Duracao is Chegada - Partida.
+    Chegada - Partida =< DuraResto.
 
   calculaMenorDuracao([H|T], Dia, HorarioSaida, HorarioChegada, Companhia, Duracao) :-
     calculaMenorDuracao(T, Dia, HorarioSaida, HorarioChegada, Companhia, Duracao),
@@ -97,3 +96,19 @@ voo(frankfurt, london, 1112, 6,(mesmo,9), 0, gol,[qua,qui]).
 
 % 5-	(3 pontos) Idem ao anterior, mostrando o dia e horário de partida e a duração total da viagem.
 %  menor_roteiro(Origem, Destino, DiaSaída, HorSaida, Duração).
+
+  menor_roteiro(Origem, Destino, DiaSaida, HorSaida, Duracao):-
+    listaVoosDiretos(Origem, Destino, L),
+    calculaMenorRoteiro(L, DiaSaida, HorSaida, Duracao).
+
+  calculaMenorRoteiro([], _, _, 99999999).
+  calculaMenorRoteiro([H|T], DiaSaida, HorSaida, Duracao) :-
+    calculaMenorRoteiro(T, _,_, DuraResto),
+    voo(_,_,H, HorSaida, (_, HorChegada), _, _, DiaSaida),
+    HorChegada - HorSaida =< DuraResto,
+    Duracao is HorChegada - HorSaida.
+
+  calculaMenorRoteiro([H|T], DiaSaida, HorSaida, Duracao) :-
+    calculaMenorRoteiro(T, DiaSaida, HorSaida, Duracao),
+    voo(_,_, H, Par, (_, Che), _, _,_),
+    Duracao < Che - Par.
