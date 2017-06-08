@@ -1,29 +1,37 @@
 %----------------- DEFINES ----------------
-voo(sao-paulo, mexico, 2131, 0235, (dia_chegada,horario_chegada), 0, tam, [seg, ter, qua, qui, sex]).
-voo(sao-paulo, nova-york, 04502, 2200, (dia_chegada,horario_chegada), 0, gol, [seg, ter, qua, qui, sex]).
-voo(sao-paulo, lisboa, 03453, 0700, (dia_chegada,1100), 0, azul, [seg, ter, qua, qui, sex]).
-voo(sao-paulo, lisboa, 03882, 0800, (dia_chegada,1300), 0, azul, [seg, ter, qua, qui, sex]).
-voo(sao-paulo, madrid, 23404, 0900, (dia_chegada,horario_chegada), 0, tam, [seg, ter, qua, qui, sex]).
-voo(sao-paulo, londres, 5605, 1600, (dia_chegada,horario_chegada), 0, gol, [seg, ter, qua, qui, sex]).
-voo(sao-paulo, paris, 63216, 2100, (dia_chegada,horario_chegada), 0, azul, [seg, ter, qua, qui, sex]).
+%Sao Paulo.
 
-%voo(mexico, nova-york, codigo,partida,(dia_chegada,horario_chegada), número_de_escalas, companhia,[dias]).
-%voo(mexico, madrid, codigo,partida,(dia_chegada,horario_chegada), número_de_escalas, companhia,[dias]).
+voo(sao_paulo, mexico, h32, 02:35, (dia_chegada,8:14), 0, tam, [seg, ter, qua, qui, sex]).
+voo(sao_paulo, nova_york, k312, 22:00, (dia_chegada,7:43), 0, gol, [seg, ter, qua, qui, sex]).
+voo(sao_paulo, lisboa, h53, 07:00, (dia_chegada,1100), 0, azul, [seg, ter, qua, qui, sex]).
+voo(sao_paulo, madrid, j76, 09:00, (dia_chegada,17:56), 0, tam, [seg, ter, qua, qui, sex]).
+voo(sao_paulo, londres, i84, 16:00, (dia_chegada,20:12), 0, gol, [seg, ter, qua, qui, sex]).
+voo(sao_paulo, paris, n76, 21:00, (dia_chegada,23:45), 0, azul, [seg, ter, qua, qui, sex]).
 
-%voo(nova-york, londres, codigo,partida,(dia_chegada,horario_chegada), número_de_escalas, companhia,[dias]).
+%Mexico.
+voo(mexico, nova_york, g84 ,10:00,(dia_chegada,12:15), 0, azul,[ter,qui]).
+voo(mexico, madrid, y69,17:45,(dia_chegada,23:50), 0, gol,[ter,qua,qui]).
 
-%voo(londres, lisboa, codigo,partida,(dia_chegada,horario_chegada), número_de_escalas, companhia,[dias]).
-%voo(londres, paris, codigo,partida,(dia_chegada,horario_chegada), número_de_escalas, companhia,[dias]).
-%voo(londres, estocolmo, codigo,partida,(dia_chegada,horario_chegada), número_de_escalas, companhia,[dias]).
+%Nova York
 
-%voo(madrid, paris, codigo,partida,(dia_chegada,horario_chegada), número_de_escalas, companhia,[dias]).
-%voo(madrid, roma, codigo,partida,(dia_chegada,horario_chegada), número_de_escalas, companhia,[dias]).
-voo(madrid, frankfurt, 6666, partida,(dia_chegada,horario_chegada), 0, companhia,[dias]).
+voo(nova_york, londres, s32,14:34,(dia_chegada,19:32), 0, tam,[sex, sab, dom]).
 
-voo(frankfurt, estocolmo, 7777,partida,(dia_chegada,horario_chegada), 0, companhia,[dias]).
-voo(frankfurt, london, 0101, 3,(mesmo,7), 0, tam,[seg,ter,qua]).
-voo(frankfurt, london, 1112, 6,(mesmo,9), 0, gol,[qua,qui]).
-%voo(frankfurt, roma, codigo,partida,(dia_chegada,horario_chegada), número_de_escalas, companhia,[dias]).
+%londres
+
+voo(londres, lisboa, k76,13:20,(dia_chegada,16:13), 0, gol,[ter,qua]).
+voo(londres, paris, i32,12:45,(dia_chegada,14:50), 0, azul,[qui,sex]).
+voo(londres, estocolmo, s89,11:54,(dia_chegada,15:39), 0, tam,[sab]).
+
+%madrid
+
+voo(madrid, paris, l389,2:21,(dia_chegada,4:32), 0, gol,[dias]).
+voo(madrid, roma, n731,5:74,(dia_chegada,9:12), 0, azul,[dias]).
+voo(madrid, frankfurt, k6666, 9:23,(dia_chegada,14:47), 0, tam,[dias]).
+
+%frankfurt
+
+voo(frankfurt, estocolmo, t83, 21:55,(dia_chegada,23:55), 0, gol,[seg]).
+voo(frankfurt, roma, b73 ,8:12,(dia_chegada,10:43), 0, azul,[ter]).
 
 
 
@@ -101,7 +109,7 @@ voo(frankfurt, london, 1112, 6,(mesmo,9), 0, gol,[qua,qui]).
     listaVoosDiretos(Origem, Destino, L),
     calculaMenorRoteiro(L, DiaSaida, HorSaida, Duracao).
 
-  calculaMenorRoteiro([], _, _, 99999999).
+  calculaMenorRoteiro([], _, _, 99999999999).
   calculaMenorRoteiro([H|T], DiaSaida, HorSaida, Duracao) :-
     calculaMenorRoteiro(T, _,_, DuraResto),
     voo(_,_,H, HorSaida, (_, HorChegada), _, _, DiaSaida),
