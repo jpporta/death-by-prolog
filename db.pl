@@ -2,7 +2,7 @@
 %Sao Paulo.
 
 vôo(sao_paulo, mexico, h32, 02:35, (dia_chegada,8:14), 0, tam, [seg, ter, qua, qui, sex]).
-vôo(sao_paulo, nova_york, k312, 22:00, (dia_chegada,7:43), 0, gol, [seg, ter, qua, qui, sex]).
+vôo(sao_paulo, nova_york, k312, 7:43, (dia_chegada,10:43), 0, gol, [seg, ter, qua, qui, sex]).
 vôo(sao_paulo, lisboa, h53, 07:00, (dia_chegada,1100), 0, azul, [seg, ter, qua, qui, sex]).
 vôo(sao_paulo, madrid, j76, 09:00, (dia_chegada,17:56), 0, tam, [seg, ter, qua, qui, sex]).
 vôo(sao_paulo, londres, i84, 16:00, (dia_chegada,20:12), 0, gol, [seg, ter, qua, qui, sex]).
@@ -92,15 +92,20 @@ vôo(frankfurt, roma, b73 ,8:12,(dia_chegada,10:43), 0, azul,[ter]).
 
 %nao funciona se formato 8:00, mas sim com 800.
   calculaMenorDuracao([], _, _, _, _, 10000000).
-  calculaMenorDuracao([H|T], Dia, Partida, Chegada, Companhia, Chegada - Partida) :-
+  calculaMenorDuracao([H|T], Dia, HP:MP, HC:MC, Companhia, Duracao) :-
     calculaMenorDuracao(T, _, _, _, _, DuraResto),
-    vôo(_, _, H, Partida, (_, Chegada),_ ,Companhia, Dia),
-    Chegada - Partida =< DuraResto.
+    vôo(_, _, H, HP:MP, (_, HC:MC),_ ,Companhia, Dia),
+    minutoHora(HP,MP, MINP),
+    minutoHora(HC,MC, MINC),
+    MINC - MINP =< DuraResto,
+    Duracao is MINC - MINP, !.
 
   calculaMenorDuracao([H|T], Dia, HorarioSaida, HorarioChegada, Companhia, Duracao) :-
     calculaMenorDuracao(T, Dia, HorarioSaida, HorarioChegada, Companhia, Duracao),
-    vôo(_, _, H, Partida, (_, Chegada),_, _, _),
-    Chegada - Partida > Duracao.
+    vôo(_, _, H, HP:MP, (_, HC:MC),_ ,_, _),
+    minutoHora(HP,MP, MINP),
+    minutoHora(HC,MC, MINC),
+    MINC - MINP > Duracao.
 
 
 % 5-	(3 pontos) Idem ao anterior, mostrando o dia e horário de partida e a duração total da viagem.
@@ -111,11 +116,11 @@ vôo(frankfurt, roma, b73 ,8:12,(dia_chegada,10:43), 0, azul,[ter]).
     menor_roteiro(Voos, DiaSaida, HorSaida, Minutos),
     horaMinuto(Hora, Minuto, Minutos).
 
-  menor_roteiro([], fail, fail, 99999999).
+  menor_roteiro([], error, fail, 99999999).
   menor_roteiro([Lista|Tail], Dia, Hora, Min):-
     menor_roteiro(Tail, Dia, Hora, Min),
     calculaRoteiro(Lista, Min1),
-    Min1 < Min, !.
+    Min1 > Min.
 
   menor_roteiro([[H|T]|Tail], Dia, Hora, Min):-
     menor_roteiro(Tail, _, _, Min1),
